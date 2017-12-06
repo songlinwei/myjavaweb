@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="gh-slwhttpcroe-web:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="gh-springjunitmavenlog4j-web.war">
+      <element id="artifact" artifact-name="gh-slwhttpcroe-web:war exploded" />
+    </root>
+  </artifact>
+</component>

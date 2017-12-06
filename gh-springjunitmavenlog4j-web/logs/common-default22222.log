@@ -1,0 +1,8 @@
+2017-12-06.19:06:36.601-[HL] DEBUG main com.github.slw.HelloController - debug printWelcome
+2017-12-06.19:06:36.602-[HL] INFO main com.github.slw.HelloController - info printWelcome
+2017-12-06.19:06:36.602-[HL] WARN main com.github.slw.HelloController - warn printWelcome
+2017-12-06.19:06:36.602-[HL] ERROR main com.github.slw.HelloController - error printWelcome
+2017-12-06.19:06:52.976-[HL] DEBUG main com.github.slw.HelloController - debug printWelcome
+2017-12-06.19:06:52.977-[HL] INFO main com.github.slw.HelloController - info printWelcome
+2017-12-06.19:06:52.977-[HL] WARN main com.github.slw.HelloController - warn printWelcome
+2017-12-06.19:06:52.978-[HL] ERROR main com.github.slw.HelloController - error printWelcome
