@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="lazyLoadingEnabled" value="false"/>
+    </settings>
+
+    <!-- 命名空间 -->
+    <typeAliases>
+        <typeAlias alias="ActivityModel" type="com.springapp.model.ActivityModel"/>
+        <typeAlias alias="PrizeLogModel" type="com.springapp.model.PrizeLogModel"/>
+        <typeAlias alias="PrizeModel" type="com.springapp.model.PrizeModel"/>
+        <typeAlias alias="User" type="com.springapp.model.User"/>
+    </typeAliases>
+
+    <!-- 映射map -->
+    <mappers>
+        <mapper resource="com/springapp/dao/mapper/ActivityMapper.xml" />
+        <mapper resource="com/springapp/dao/mapper/PrizeLogMapper.xml" />
+        <mapper resource="com/springapp/dao/mapper/PrizeMapper.xml" />
+        <mapper resource="com/springapp/dao/mapper/UserMapper.xml" />
+    </mappers>
+</configuration>
+

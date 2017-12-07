@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springapp.dao.ActivityDao">
+
+    <resultMap id="activityModel" type="com.springapp.model.ActivityModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="activity_name" property="activityName" jdbcType="VARCHAR"/>
+        <result column="activity_info" property="activityInfo" jdbcType="VARCHAR"/>
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
+        <result column="end_date" property="endDate" jdbcType="TIMESTAMP"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="column_list">
+        id,activity_name,activity_info,start_date,start_date,create_date,update_date
+    </sql>
+
+
+    <select id="selectActivity" parameterType="java.lang.Integer" resultMap="activityModel">
+        SELECT
+        <include refid="column_list"/>
+        FROM tb_choujiang_activity
+        WHERE id = #{activityId, jdbcType=INTEGER}
+    </select>
+
+    <select id="listPrize" parameterType="java.util.Map" resultMap="activityModel">
+        SELECT
+        <include refid="column_list"/>
+        FROM tb_choujiang_activity order by id
+        limit #{start, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+    </select>
+
+    <!--INSERT IGNORE INTO tb_choujiang_activity-->
+    <insert id="insertActivity" parameterType="com.springapp.model.ActivityModel" keyProperty="id"
+            useGeneratedKeys="true">
+        INSERT INTO tb_choujiang_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="activityName != null">activity_name,</if>
+            <if test="activityInfo != null">activity_info,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="endDate != null">end_date,</if>
+            create_date
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="activityName != null">#{activityName, jdbcType=VARCHAR},</if>
+            <if test="activityInfo != null">#{activityInfo, jdbcType=VARCHAR},</if>
+            <if test="startDate != null">#{startDate, jdbcType=TIMESTAMP},</if>
+            <if test="endDate != null">#{endDate, jdbcType=TIMESTAMP},</if>
+            NOW()
+        </trim>
+    </insert>
+
+    <update id="updateActivity" parameterType="com.springapp.model.ActivityModel">
+        UPDATE tb_choujiang_activity
+        <set>
+            <if test="activityName != null">activity_name=#{activityName, jdbcType=VARCHAR},</if>
+            <if test="activityInfo != null">activity_info=#{activityInfo, jdbcType=VARCHAR},</if>
+            <if test="startDate != null">start_date=#{startDate, jdbcType=TIMESTAMP},</if>
+            <if test="endDate != null">end_date=#{endDate, jdbcType=TIMESTAMP},</if>
+            update_date=NOW()
+        </set>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+</mapper>

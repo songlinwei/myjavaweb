@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springapp.dao.PrizeDao">
+    <resultMap id="prizeModel" type="com.springapp.model.PrizeModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="activity_id" property="activityId" jdbcType="INTEGER"/>
+        <result column="prize_name" property="prizeName" jdbcType="VARCHAR"/>
+        <result column="prize_info" property="prizeInfo" jdbcType="VARCHAR"/>
+        <result column="prize_type" property="prizeType" jdbcType="TINYINT"/>
+        <result column="prize_num" property="prizeNum" jdbcType="INTEGER"/>
+        <result column="prize_probability" property="prizeProbability" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
+        <result column="end_date" property="endDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="column_list">
+        id,activity_id,prize_name,prize_info,prize_type,prize_num,prize_probability,create_date,update_date,start_date,end_date
+    </sql>
+
+    <select id="selectPrize" parameterType="java.lang.Integer" resultMap="prizeModel">
+        SELECT
+        <include refid="column_list"/>
+        FROM tb_choujiang_prize
+        WHERE id = #{prizeId, jdbcType=INTEGER}
+    </select>
+
+
+    <select id="listPrize" parameterType="java.util.Map" resultMap="prizeModel">
+        SELECT
+        <include refid="column_list"/>
+        FROM tb_choujiang_prize order by id
+        LIMIT #{start, jdbcType=INTEGER}, #{length, jdbcType=INTEGER}
+    </select>
+
+    <select id="listActivityIdPrize" parameterType="java.lang.Integer" resultMap="prizeModel">
+        SELECT
+        <include refid="column_list"/>
+        FROM tb_choujiang_prize
+        WHERE activity_id = #{activityId, jdbcType=INTEGER} order by id
+    </select>
+
+    <insert id="insertPrize" parameterType="com.springapp.model.PrizeModel" keyProperty="id"
+            useGeneratedKeys="true">
+        INSERT INTO tb_choujiang_prize
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">activity_id,</if>
+            <if test="prizeName != null">prize_name,</if>
+            <if test="prizeInfo != null">prize_info,</if>
+            <if test="prizeType != null">prize_type,</if>
+            <if test="prizeNum != null">prize_num,</if>
+            <if test="prizeProbability != null">prize_probability,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="endDate != null">end_date,</if>
+            create_date
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="activityId != null">#{activityId, jdbcType=INTEGER},</if>
+            <if test="prizeName != null">#{prizeName, jdbcType=VARCHAR},</if>
+            <if test="prizeInfo != null">#{prizeInfo, jdbcType=VARCHAR},</if>
+            <if test="prizeType != null">#{prizeType, jdbcType=TINYINT},</if>
+            <if test="prizeNum != null">#{prizeNum, jdbcType=INTEGER},</if>
+            <if test="prizeProbability != null">#{prizeProbability, jdbcType=VARCHAR},</if>
+            <if test="startDate != null">#{startDate, jdbcType=TIMESTAMP},</if>
+            <if test="endDate != null">#{endDate, jdbcType=TIMESTAMP},</if>
+            NOW()
+        </trim>
+    </insert>
+
+    <update id="updatePrize" parameterType="com.springapp.model.PrizeModel">
+        UPDATE tb_choujiang_prize
+        <set>
+            <if test="activityId != null">activity_id=#{activityId, jdbcType=INTEGER},</if>
+            <if test="prizeName != null">prize_name=#{prizeName, jdbcType=VARCHAR},</if>
+            <if test="prizeInfo != null">prize_info=#{prizeInfo, jdbcType=VARCHAR},</if>
+            <if test="prizeType != null">prize_type=#{prizeType, jdbcType=TINYINT},</if>
+            <if test="prizeNum != null">prize_num=#{prizeNum, jdbcType=INTEGER},</if>
+            <if test="prizeProbability != null">prize_probability=#{prizeProbability, jdbcType=VARCHAR},</if>
+            <if test="startDate != null">start_date=#{startDate, jdbcType=TIMESTAMP},</if>
+            <if test="endDate != null">end_date=#{endDate, jdbcType=TIMESTAMP},</if>
+            update_date=NOW()
+        </set>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+</mapper>
