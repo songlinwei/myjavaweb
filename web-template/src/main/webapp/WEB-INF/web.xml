@@ -21,6 +21,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+    <!--备注 在tomcat设置页面VM options参数设置为： -Dfile.encoding=UTF-8 防止log乱码-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>
